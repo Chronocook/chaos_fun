@@ -93,7 +93,7 @@ uranus = {"location": Point(0, 2.8e12, 0),  "mass": 8.7e25,  "velocity": Point(6
 neptune = {"location": Point(0, 4.5e12, 0),  "mass": 1e26,  "velocity": Point(5477, 0, 0)}
 pluto = {"location": Point(0, 3.7e12, 0),  "mass": 1.3e22,  "velocity": Point(4748, 0, 0)}
 vesta = {"location": Point(0, 3.53e11, 0),  "mass": 2.59e20,  "velocity": Point(19340, 0, 0)}
-vesta_degenerate_1 = {"location": Point(0, 3.53e11, 0),  "mass": 2.59e20,  "velocity": Point(14000, -500, 0)}
+vesta_degenerate_1 = {"location": Point(0, 3.53e11, 0),  "mass": 2.59e20,  "velocity": Point(14350, 0, 0)}
 vesta_degenerate_2 = {"location": Point(0, 3.53e11, 0),  "mass": 2.59e20,  "velocity": Point(14500, 0, 0)}
 
 
