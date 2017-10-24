@@ -68,17 +68,18 @@ if __name__ == '__main__':
     # Report basic system info
     log.out.info("Python version: " + sys.version)
 
-#    plot_mandelbot(xmin=-2.25, xmax=0.75, xres=300,
-#                   ymin=-1.25, ymax=1.25, yres=250,
-#                   maxiter=250, horizon=2.0**40)
+    # TEST
+    plot_mandelbot(xmin=-2.25, xmax=0.75, xres=300,
+                   ymin=-1.25, ymax=1.25, yres=250,
+                   maxiter=250, horizon=2.0**40)
 
-    plot_mandelbot(xmin=-0.35, xmax=0.10, xres=6000,
-                   ymin=-1.12, ymax=-0.63, yres=6000,
-                   maxiter=250, horizon=2.0**40)
-    
-    plot_mandelbot(xmin=-2.25, xmax=0.75, xres=3000,
-                   ymin=-1.25, ymax=1.25, yres=2500,
-                   maxiter=250, horizon=2.0**40)
+    # plot_mandelbot(xmin=-0.35, xmax=0.10, xres=6000,
+    #                ymin=-1.12, ymax=-0.63, yres=6000,
+    #                maxiter=250, horizon=2.0**40)
+    #
+    # plot_mandelbot(xmin=-2.25, xmax=0.75, xres=3000,
+    #                ymin=-1.25, ymax=1.25, yres=2500,
+    #                maxiter=250, horizon=2.0**40)
 
     
     # Stop Logging
