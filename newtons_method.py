@@ -1,5 +1,6 @@
 """
-
+Add description dude...
+The axes could use some love
 
 """
 
@@ -14,7 +15,7 @@ import math
 
 def newtons_method(f, df, zi, e, max_iteration=1000):
     """
-    Finda a root using Newtown's method
+    Find a root using Newtown's method
     :param f: function to search for root on
     :param df: derivative of above
     :param x0: initial guess
@@ -131,7 +132,6 @@ def plot_basins(xmin, xmax, ymin, ymax, xres, yres,
         for j in range(len(y_axis)):
             basin_map_real[i, j] = basin_map[i, j].real
             basin_map_imag[i, j] = basin_map[i, j].imag
-
     # Normalize for coloring
     # Shift to positive
     outliers = 1.0
@@ -139,6 +139,8 @@ def plot_basins(xmin, xmax, ymin, ymax, xres, yres,
     basin_map_real[basin_map_real < -outliers] = -outliers
     basin_map_imag[basin_map_imag > outliers] = outliers
     basin_map_imag[basin_map_imag < -outliers] = -outliers
+    basin_map_real = np.nan_to_num(basin_map_real)
+    basin_map_imag = np.nan_to_num(basin_map_imag)
 
     max_real_val = 1.0
     min_real_val = np.min(basin_map_real)
@@ -146,40 +148,18 @@ def plot_basins(xmin, xmax, ymin, ymax, xres, yres,
     max_imag_val = 1.0
     min_imag_val = np.min(basin_map_imag)
     basin_map_imag = basin_map_imag + abs(min_imag_val)
-
-#    basin_map_real = basin_map_real + max_root_val
     basin_map_imag = 2.0 * max_real_val * (basin_map_imag + max_imag_val)
     basin_colors = basin_map_real + basin_map_imag
-#    basin_colors = basin_map_real
-
+    
 #    pylab.matshow(basin_colors.transpose(), cmap=plt.cm.hot)
     pylab.matshow(basin_colors.transpose(), cmap=plt.get_cmap('viridis'))
 #    pylab.matshow(basin_colors.transpose(), cmap=plt.get_cmap('pink'))
     pylab.draw()
-#    pylab.matshow(iter_map.transpose(), cmap=plt.get_cmap('pink'))
-#    pylab.draw()
+
 
 def d_arctan():
     def func(x):
         return (1.0 / (1.0 + x**2))
-    return func
-
-def e_negz():
-    def func(x):
-        return math.exp(-x)
-    return func
-def de_negz():
-    def func(x):
-        return (-math.exp(-x))
-    return func
-
-def fun():
-    def func(x):
-        return math.exp(-x) - x**2
-    return func
-def dfun():
-    def func(x):
-        return (-math.exp(-x)) - (2.0 * x)
     return func
 
 
@@ -193,7 +173,18 @@ if __name__ == '__main__':
 
     # test_method()
 
-    plot_basins(-1.5, 1.5, -1.5, 1.5, 0.05, 0.05)
+    # Define z^4 -1 as a the function
+    coefs = [1.0, -1.0]
+    pows = [4, 0]
+    f = make_polynomial(coefs, pows)
+    df = make_derivative_polynomial(coefs, pows)
+
+#    plot_basins(-1.5, 1.5, -1.5, 1.5, 0.05, 0.05,
+#                f=f, df=df)
+#    plot_basins(-1.5, 1.5, -1.5, 1.5, 0.01, 0.01,
+#                f=f, df=df)
+    plot_basins(1.0, 1.35, 1.0, 1.35, 0.001, 0.001,
+                f=f, df=df)
 
 #    f = np.sin
 #    df = np.cos
@@ -201,14 +192,6 @@ if __name__ == '__main__':
 
 #    f = math.atan
 #    df = d_arctan()
-#    plot_basins(-2.0, 2.0, -2.0, 2.0, 0.001, 0.001, f=f, df=df)
-
-#    f = e_negz()
-#    df = de_negz()
-#    plot_basins(-2.0, 2.0, -2.0, 2.0, 0.1, 0.1, f=f, df=df)
-
-#    f = fun()
-#    df = dfun()
 #    plot_basins(-2.0, 2.0, -2.0, 2.0, 0.01, 0.01, f=f, df=df)
 
     # Stop Logging
