@@ -23,14 +23,13 @@ from uplog import log
 from numpy import sin, cos
 import numpy as np
 import multiprocessing as mp
-
 import scipy.integrate as integrate
 ### Only need to run once to download ffmpeg
 #import imageio
 #imageio.plugins.ffmpeg.download()
 import moviepy.editor as mpy  # pip install moviepy
 
-MAX_TIME = 10
+MAX_TIME = 300
 DT       = 0.05
 G        = 9.8  # acceleration due to gravity, in m/s^2
 length_1 = 1.0  # length of pendulum weight 1 in m
@@ -162,7 +161,7 @@ def make_frame(t):
     return IMAGE_ARRAY[:, :, index, :]
 
 
-def make_a_movie():
+def make_a_movie(output_detail=False):
     log.out.info("Starting Pendulum integration")
     # Create a time array from 0..MAX_TIME sampled at 0.05 second steps
     t = np.arange(0.0, MAX_TIME, DT)
@@ -201,6 +200,18 @@ def make_a_movie():
         pendulum[i]['x2'] = length_2 * sin(INTEGRALS[i][:, 2]) + pendulum[i]['x1']
         pendulum[i]['y2'] = -length_2 * cos(INTEGRALS[i][:, 2]) + pendulum[i]['y1']
 
+        if output_detail:
+            with open("pendulum_output_" + str(i).zfill(2) + ".csv", 'w') as file_handle:
+                header = "theta_1,omega_1,x1,y1,theta_2,omega_2,x2,y2"
+                file_handle.write(header + "\n")
+                for t in range(len(INTEGRALS[i])):
+                    line = (str(INTEGRALS[i][t][0]) + "," + str(INTEGRALS[i][t][1]) + "," +
+                            str(pendulum[i]['x1'][t]) + "," + str(pendulum[i]['y1'][t]) + "," +
+                            str(INTEGRALS[i][t][2]) + "," + str(INTEGRALS[i][t][3]) + "," +
+                            str(pendulum[i]['x2'][t]) + "," + str(pendulum[i]['y2'][t]))
+                    file_handle.write(line)
+                    file_handle.write("\n")
+
     # Make the movie
     xrange = 2.0
     xres   = 600
@@ -231,4 +242,4 @@ def make_a_movie():
 # DRIVER
 if __name__ == "__main__":
 
-    make_a_movie()
+    make_a_movie(output_detail=True)
